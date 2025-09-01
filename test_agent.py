@@ -7,6 +7,7 @@ Testing basic agent creation and state management
 from aios.object import Object
 from aios.state import State
 
+
 def test_basic_agent():
     """Test basic agent creation"""
     try:
@@ -17,10 +18,11 @@ def test_basic_agent():
         print(f"❌ Agent creation failed: {e}")
         return None
 
+
 def test_state_management():
     """Test state management"""
     try:
-        status = State(['idle', 'working', 'done'], name='status', default='idle')
+        status = State(["idle", "working", "done"], name="status", default="idle")
         print(f"✅ Status created: {status}")
         print(f"   Current state: {status.current_state}")
         print(f"   Available states: {status.states}")
@@ -29,12 +31,13 @@ def test_state_management():
         print(f"❌ State creation failed: {e}")
         return None
 
+
 def test_agent_workflow():
     """Test basic agent workflow"""
     try:
         agent = test_basic_agent()
         status = test_state_management()
-        
+
         if agent and status:
             print("\n🚀 Basic AIOS Agent Ready!")
             print("   Agent:", agent)
@@ -46,6 +49,7 @@ def test_agent_workflow():
     except Exception as e:
         print(f"❌ Workflow test failed: {e}")
         return False
+
 
 if __name__ == "__main__":
     print("=== AIOS Agent Test ===")

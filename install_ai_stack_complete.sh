@@ -169,7 +169,7 @@ from pathlib import Path
 def test_imports():
     """Test all component imports"""
     print("🧪 Testing Complete AI Stack Imports...")
-    
+
     components = {
         'DVC': 'dvc',
         'Transformers': 'transformers',
@@ -180,7 +180,7 @@ def test_imports():
         'MLflow': 'mlflow',
         'DB-GPT': 'dbgpt'
     }
-    
+
     results = {}
     for name, module in components.items():
         try:
@@ -190,13 +190,13 @@ def test_imports():
         except ImportError as e:
             print(f"❌ {name}: Import failed - {e}")
             results[name] = False
-    
+
     return results
 
 def create_unified_workflow():
     """Create a unified workflow using all components"""
     print("\n🔧 Creating Unified AI Development Workflow...")
-    
+
     workflow_code = '''
 #!/usr/bin/env python3
 """
@@ -217,7 +217,7 @@ def run_complete_workflow():
     """Run the complete AI development workflow"""
     print("🚀 Complete AI Development Stack Workflow")
     print("=" * 50)
-    
+
     # Step 1: Data Management with DVC
     print("📊 Step 1: Data Management with DVC")
     try:
@@ -225,7 +225,7 @@ def run_complete_workflow():
         print("✅ DVC ready for data versioning")
     except ImportError:
         print("❌ DVC not available")
-    
+
     # Step 2: Model Development with Transformers
     print("\n🤖 Step 2: Model Development with Transformers")
     try:
@@ -233,7 +233,7 @@ def run_complete_workflow():
         print("✅ Transformers ready for model development")
     except ImportError:
         print("❌ Transformers not available")
-    
+
     # Step 3: LLM Orchestration with LangChain
     print("\n🔗 Step 3: LLM Orchestration with LangChain")
     try:
@@ -241,7 +241,7 @@ def run_complete_workflow():
         print("✅ LangChain ready for LLM orchestration")
     except ImportError:
         print("❌ LangChain not available")
-    
+
     # Step 4: Multi-Agent Systems with AutoGen
     print("\n👥 Step 4: Multi-Agent Systems with AutoGen")
     try:
@@ -249,7 +249,7 @@ def run_complete_workflow():
         print("✅ AutoGen ready for multi-agent systems")
     except ImportError:
         print("❌ AutoGen not available")
-    
+
     # Step 5: Training Acceleration with DeepSpeed
     print("\n⚡ Step 5: Training Acceleration with DeepSpeed")
     try:
@@ -257,7 +257,7 @@ def run_complete_workflow():
         print("✅ DeepSpeed ready for training acceleration")
     except ImportError:
         print("❌ DeepSpeed not available")
-    
+
     # Step 6: Model Deployment with BentoML
     print("\n📦 Step 6: Model Deployment with BentoML")
     try:
@@ -265,7 +265,7 @@ def run_complete_workflow():
         print("✅ BentoML ready for model deployment")
     except ImportError:
         print("❌ BentoML not available")
-    
+
     # Step 7: MLOps with MLflow
     print("\n🔬 Step 7: MLOps with MLflow")
     try:
@@ -273,7 +273,7 @@ def run_complete_workflow():
         print("✅ MLflow ready for MLOps")
     except ImportError:
         print("❌ MLflow not available")
-    
+
     # Step 8: Database AI with DB-GPT
     print("\n🗄️ Step 8: Database AI with DB-GPT")
     try:
@@ -281,7 +281,7 @@ def run_complete_workflow():
         print("✅ DB-GPT ready for database AI")
     except ImportError:
         print("❌ DB-GPT not available")
-    
+
     print("\n" + "=" * 50)
     print("🎉 Complete AI Development Stack Ready!")
     print("🚀 You can now build end-to-end AI systems!")
@@ -289,14 +289,14 @@ def run_complete_workflow():
 if __name__ == "__main__":
     run_complete_workflow()
 '''
-    
+
     # Save workflow
     workflow_file = Path.home() / ".aios" / "templates" / "complete_ai_stack_workflow.py"
     workflow_file.parent.mkdir(parents=True, exist_ok=True)
-    
+
     with open(workflow_file, 'w') as f:
         f.write(workflow_code)
-    
+
     print(f"✅ Complete workflow created: {workflow_file}")
     return True
 
@@ -304,27 +304,27 @@ def main():
     """Main integration function"""
     print("🧠 Complete AI Development Stack Integration")
     print("=" * 50)
-    
+
     # Test imports
     results = test_imports()
-    
+
     # Create workflow
     workflow_created = create_unified_workflow()
-    
+
     # Summary
     print("\n" + "=" * 50)
     successful_imports = sum(results.values())
     total_components = len(results)
-    
+
     print(f"📊 Integration Summary: {successful_imports}/{total_components} components working")
-    
+
     if successful_imports == total_components:
         print("🎉 All components integrated successfully!")
         print("🚀 Your complete AI development stack is ready!")
     else:
         print("⚠️ Some components failed to integrate")
         print("💡 Check the logs above for details")
-    
+
     return successful_imports == total_components
 
 if __name__ == "__main__":

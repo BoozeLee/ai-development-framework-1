@@ -4,44 +4,49 @@ Production Deployment Script for Advanced AI Orchestrator
 Shows how to deploy the system to production with proper configuration
 """
 
+import json
 import os
 import sys
-import json
-import yaml
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
+
+import yaml
 
 # Add AIOS environment to path
-aios_env_path = os.path.join(os.getcwd(), "environments", "aios-env", "lib", "python3.11", "site-packages")
+aios_env_path = os.path.join(
+    os.getcwd(), "environments", "aios-env", "lib", "python3.11", "site-packages"
+)
 if aios_env_path not in sys.path:
     sys.path.insert(0, aios_env_path)
 
 try:
+    from aios.core_utils import format_timestamp
     from aios.object import Object
     from aios.state import State
-    from aios.core_utils import format_timestamp
+
     print("✅ AIOS modules imported successfully")
 except ImportError as e:
     print(f"❌ Import failed: {e}")
     sys.exit(1)
 
+
 class ProductionDeployer:
     """Production deployment manager for AI Orchestrator"""
-    
+
     def __init__(self):
         self.deployment_config = {}
         self.environment_vars = {}
         self.docker_config = {}
         self.kubernetes_config = {}
-        
+
         print("🚀 Production Deployment Manager Initialized")
-    
+
     def create_environment_config(self):
         """Create environment configuration files"""
-        
+
         print("\n🔧 Creating Environment Configuration...")
         print("=" * 60)
-        
+
         # Environment variables
         env_config = {
             "AIOS_ENVIRONMENT": "production",
@@ -55,19 +60,19 @@ class ProductionDeployer:
             "CREWAI_GOOGLE_API_KEY": "your_google_key_here",
             "MONITORING_ENABLED": "true",
             "METRICS_COLLECTION": "true",
-            "ALERTING_ENABLED": "true"
+            "ALERTING_ENABLED": "true",
         }
-        
+
         # Save to .env file
-        with open('.env.production', 'w') as f:
+        with open(".env.production", "w") as f:
             for key, value in env_config.items():
                 f.write(f"{key}={value}\n")
-        
+
         print("✅ Environment configuration created: .env.production")
-        
+
         # Create config directory
-        os.makedirs('config', exist_ok=True)
-        
+        os.makedirs("config", exist_ok=True)
+
         # Production configuration
         prod_config = {
             "deployment": {
@@ -77,58 +82,50 @@ class ProductionDeployer:
                 "max_instances": 10,
                 "auto_scaling": True,
                 "health_check_interval": 30,
-                "timeout_seconds": 600
+                "timeout_seconds": 600,
             },
             "aios": {
                 "max_agents": 100,
                 "max_workflows": 50,
                 "state_persistence": True,
                 "backup_enabled": True,
-                "encryption_enabled": True
+                "encryption_enabled": True,
             },
             "crewai": {
                 "max_concurrent_agents": 20,
                 "memory_enabled": True,
                 "tool_integration": True,
-                "api_rate_limits": {
-                    "openai": 1000,
-                    "anthropic": 500,
-                    "google": 2000
-                }
+                "api_rate_limits": {"openai": 1000, "anthropic": 500, "google": 2000},
             },
             "monitoring": {
                 "prometheus_enabled": True,
                 "grafana_enabled": True,
                 "log_aggregation": True,
-                "alerting": {
-                    "email": True,
-                    "slack": True,
-                    "pagerduty": False
-                }
+                "alerting": {"email": True, "slack": True, "pagerduty": False},
             },
             "security": {
                 "authentication": "jwt",
                 "authorization": "rbac",
                 "encryption": "aes-256",
                 "rate_limiting": True,
-                "audit_logging": True
-            }
+                "audit_logging": True,
+            },
         }
-        
+
         # Save production config
-        with open('config/production.yaml', 'w') as f:
+        with open("config/production.yaml", "w") as f:
             yaml.dump(prod_config, f, default_flow_style=False, indent=2)
-        
+
         print("✅ Production configuration created: config/production.yaml")
-        
+
         return prod_config
-    
+
     def create_docker_config(self):
         """Create Docker configuration for containerized deployment"""
-        
+
         print("\n🐳 Creating Docker Configuration...")
         print("=" * 60)
-        
+
         # Dockerfile
         dockerfile = """# Production Dockerfile for AI Orchestrator
 FROM python:3.11-slim
@@ -165,10 +162,10 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \\
 # Start application
 CMD ["python", "app.py"]
 """
-        
-        with open('Dockerfile', 'w') as f:
+
+        with open("Dockerfile", "w") as f:
             f.write(dockerfile)
-        
+
         # Docker Compose
         docker_compose = """version: '3.8'
 
@@ -238,20 +235,20 @@ volumes:
   prometheus_data:
   grafana_data:
 """
-        
-        with open('docker-compose.yml', 'w') as f:
+
+        with open("docker-compose.yml", "w") as f:
             f.write(docker_compose)
-        
+
         print("✅ Docker configuration created:")
         print("   🐳 Dockerfile")
         print("   🐳 docker-compose.yml")
-    
+
     def create_kubernetes_config(self):
         """Create Kubernetes configuration for cloud deployment"""
-        
+
         print("\n☸️ Creating Kubernetes Configuration...")
         print("=" * 60)
-        
+
         # Kubernetes deployment
         k8s_deployment = """apiVersion: apps/v1
 kind: Deployment
@@ -329,19 +326,19 @@ data:
   database-url: <base64-encoded-database-url>
   api-key: <base64-encoded-api-key>
 """
-        
-        with open('k8s/deployment.yaml', 'w') as f:
-            os.makedirs('k8s', exist_ok=True)
+
+        with open("k8s/deployment.yaml", "w") as f:
+            os.makedirs("k8s", exist_ok=True)
             f.write(k8s_deployment)
-        
+
         print("✅ Kubernetes configuration created: k8s/deployment.yaml")
-    
+
     def create_monitoring_config(self):
         """Create monitoring and alerting configuration"""
-        
+
         print("\n📊 Creating Monitoring Configuration...")
         print("=" * 60)
-        
+
         # Prometheus configuration
         prometheus_config = """global:
   scrape_interval: 15s
@@ -371,11 +368,11 @@ scrape_configs:
     static_configs:
       - targets: ['redis:6379']
 """
-        
-        os.makedirs('monitoring', exist_ok=True)
-        with open('monitoring/prometheus.yml', 'w') as f:
+
+        os.makedirs("monitoring", exist_ok=True)
+        with open("monitoring/prometheus.yml", "w") as f:
             f.write(prometheus_config)
-        
+
         # Alert rules
         alert_rules = """groups:
   - name: aios_alerts
@@ -407,20 +404,20 @@ scrape_configs:
           summary: "Workflow failures detected"
           description: "AIOS workflows are failing"
 """
-        
-        with open('monitoring/alert_rules.yml', 'w') as f:
+
+        with open("monitoring/alert_rules.yml", "w") as f:
             f.write(alert_rules)
-        
+
         print("✅ Monitoring configuration created:")
         print("   📊 monitoring/prometheus.yml")
         print("   📊 monitoring/alert_rules.yml")
-    
+
     def create_ci_cd_config(self):
         """Create CI/CD pipeline configuration"""
-        
+
         print("\n🔄 Creating CI/CD Configuration...")
         print("=" * 60)
-        
+
         # GitHub Actions workflow
         github_actions = """name: AIOS Orchestrator CI/CD
 
@@ -435,22 +432,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-    
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install pytest pytest-cov
-    
+
     - name: Run tests
       run: |
         pytest --cov=aios --cov-report=xml
-    
+
     - name: Upload coverage
       uses: codecov/codecov-action@v3
       with:
@@ -462,30 +459,30 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Build Docker image
       run: |
         docker build -t aios-orchestrator:${{ github.sha }} .
         docker tag aios-orchestrator:${{ github.sha }} aios-orchestrator:latest
-    
+
     - name: Deploy to production
       run: |
         echo "Deploying to production..."
         # Add your deployment commands here
 """
-        
-        os.makedirs('.github/workflows', exist_ok=True)
-        with open('.github/workflows/ci-cd.yml', 'w') as f:
+
+        os.makedirs(".github/workflows", exist_ok=True)
+        with open(".github/workflows/ci-cd.yml", "w") as f:
             f.write(github_actions)
-        
+
         print("✅ CI/CD configuration created: .github/workflows/ci-cd.yml")
-    
+
     def create_requirements_file(self):
         """Create production requirements file"""
-        
+
         print("\n📦 Creating Production Requirements...")
         print("=" * 60)
-        
+
         requirements = """# Production requirements for AIOS Orchestrator
 # Core AIOS components
 aios>=0.2.2
@@ -529,18 +526,18 @@ black>=23.0.0
 flake8>=6.0.0
 mypy>=1.5.0
 """
-        
-        with open('requirements.txt', 'w') as f:
+
+        with open("requirements.txt", "w") as f:
             f.write(requirements)
-        
+
         print("✅ Production requirements created: requirements.txt")
-    
+
     def create_deployment_script(self):
         """Create deployment automation script"""
-        
+
         print("\n🚀 Creating Deployment Scripts...")
         print("=" * 60)
-        
+
         # Production deployment script
         deploy_script = """#!/bin/bash
 # Production Deployment Script for AIOS Orchestrator
@@ -603,21 +600,21 @@ echo "🌐 Access the application at: http://localhost:8000"
 echo "📊 Access monitoring at: http://localhost:3000 (Grafana)"
 echo "📈 Access metrics at: http://localhost:9090 (Prometheus)"
 """
-        
-        with open('deploy_production.sh', 'w') as f:
+
+        with open("deploy_production.sh", "w") as f:
             f.write(deploy_script)
-        
+
         # Make executable
-        os.chmod('deploy_production.sh', 0o755)
-        
+        os.chmod("deploy_production.sh", 0o755)
+
         print("✅ Deployment script created: deploy_production.sh")
-    
+
     def generate_deployment_summary(self):
         """Generate deployment summary and next steps"""
-        
+
         print("\n📋 Deployment Summary Generated!")
         print("=" * 60)
-        
+
         summary = {
             "deployment_date": format_timestamp(datetime.now().timestamp()),
             "components_created": [
@@ -628,7 +625,7 @@ echo "📈 Access metrics at: http://localhost:9090 (Prometheus)"
                 "Monitoring configuration (monitoring/)",
                 "CI/CD pipeline (.github/workflows/ci-cd.yml)",
                 "Production requirements (requirements.txt)",
-                "Deployment script (deploy_production.sh)"
+                "Deployment script (deploy_production.sh)",
             ],
             "next_steps": [
                 "1. Configure API keys in .env.production",
@@ -637,7 +634,7 @@ echo "📈 Access metrics at: http://localhost:9090 (Prometheus)"
                 "4. Set up CI/CD pipeline in GitHub",
                 "5. Deploy to your target environment",
                 "6. Configure monitoring and alerting",
-                "7. Set up backup and recovery procedures"
+                "7. Set up backup and recovery procedures",
             ],
             "production_features": [
                 "Multi-agent orchestration with CrewAI",
@@ -647,26 +644,27 @@ echo "📈 Access metrics at: http://localhost:9090 (Prometheus)"
                 "Comprehensive monitoring and alerting",
                 "Automated CI/CD pipelines",
                 "Production-grade security and authentication",
-                "Scalable architecture with auto-scaling"
-            ]
+                "Scalable architecture with auto-scaling",
+            ],
         }
-        
+
         # Save summary
-        with open('deployment_summary.json', 'w') as f:
+        with open("deployment_summary.json", "w") as f:
             json.dump(summary, f, indent=2)
-        
+
         print("✅ Deployment summary saved: deployment_summary.json")
         return summary
 
+
 def main():
     """Main deployment configuration function"""
-    
+
     print("🚀 AIOS Orchestrator Production Deployment Configuration")
     print("=" * 80)
-    
+
     try:
         deployer = ProductionDeployer()
-        
+
         # Create all configuration files
         deployer.create_environment_config()
         deployer.create_docker_config()
@@ -675,32 +673,33 @@ def main():
         deployer.create_ci_cd_config()
         deployer.create_requirements_file()
         deployer.create_deployment_script()
-        
+
         # Generate summary
         summary = deployer.generate_deployment_summary()
-        
+
         print("\n" + "=" * 80)
         print("🎉 Production Deployment Configuration Complete!")
         print("\n📁 Files Created:")
         for component in summary["components_created"]:
             print(f"   ✅ {component}")
-        
+
         print("\n🚀 Next Steps:")
         for step in summary["next_steps"]:
             print(f"   {step}")
-        
+
         print("\n🏆 Production Features Available:")
         for feature in summary["production_features"]:
             print(f"   ✨ {feature}")
-        
+
         print("\n🎯 Your AIOS Orchestrator is ready for production deployment!")
         print("🚀 Run './deploy_production.sh' to deploy to production!")
-        
+
         return True
-        
+
     except Exception as e:
         print(f"❌ Deployment configuration failed: {e}")
         return False
+
 
 if __name__ == "__main__":
     success = main()

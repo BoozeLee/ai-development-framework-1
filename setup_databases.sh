@@ -72,11 +72,11 @@ echo "📝 Updating environment configuration..."
 if [ -f .env.production ]; then
     # Backup original file
     cp .env.production .env.production.backup
-    
+
     # Update database URLs
     sed -i 's|AIOS_DATABASE_URL=.*|AIOS_DATABASE_URL=postgresql://aios:aios_password@localhost:5432/aios_prod|' .env.production
     sed -i 's|AIOS_REDIS_URL=.*|AIOS_REDIS_URL=redis://localhost:6379/0|' .env.production
-    
+
     echo "✅ Environment file updated with database URLs"
 else
     echo "⚠️ .env.production file not found. Please run the API key setup first."

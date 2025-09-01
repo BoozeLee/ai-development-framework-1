@@ -15,39 +15,39 @@ cat > ~/.aios/config.yaml << 'EOF'
 aios:
   version: "0.2.2"
   environment: "development"
-  
+
   # Agent Configuration
   agents:
     max_concurrent: 5
     default_timeout: 300
-    
+
   # LLM Provider Configuration
   llm_providers:
     openai:
       enabled: false
       api_key: ""
       models: ["gpt-4", "gpt-3.5-turbo"]
-    
+
     ollama:
       enabled: true
       host: "http://localhost:11434"
       models: ["llama3", "mistral", "codellama"]
-    
+
     huggingface:
       enabled: false
       api_key: ""
       models: ["meta-llama/Llama-2-7b-chat-hf"]
-  
+
   # Storage Configuration
   storage:
     type: "local"
     path: "~/.aios/storage"
-    
+
   # Logging Configuration
   logging:
     level: "INFO"
     file: "~/.aios/aios.log"
-    
+
   # Security Configuration
   security:
     allow_local_execution: true
@@ -76,10 +76,10 @@ class ProductivityAgent:
     def __init__(self, name="ProductivityAgent"):
         self.agent = Object()
         self.name = name
-        self.status = State(['idle', 'working', 'done', 'error'], 
+        self.status = State(['idle', 'working', 'done', 'error'],
                            name='status', default='idle')
         self.logger = logging.getLogger(f"aios.agent.{name}")
-        
+
     def start_work(self):
         """Start the agent's work"""
         try:
@@ -90,7 +90,7 @@ class ProductivityAgent:
             self.logger.error(f"Failed to start work: {e}")
             self.status.change_state('error')
             return False
-    
+
     def complete_work(self):
         """Mark work as complete"""
         try:
@@ -101,7 +101,7 @@ class ProductivityAgent:
             self.logger.error(f"Failed to complete work: {e}")
             self.status.change_state('error')
             return False
-    
+
     def reset(self):
         """Reset agent to idle state"""
         try:
@@ -111,7 +111,7 @@ class ProductivityAgent:
         except Exception as e:
             self.logger.error(f"Failed to reset: {e}")
             return False
-    
+
     def get_status(self):
         """Get current agent status"""
         return {
@@ -124,10 +124,10 @@ class ProductivityAgent:
 if __name__ == "__main__":
     agent = ProductivityAgent("TestAgent")
     print(f"Agent created: {agent.get_status()}")
-    
+
     agent.start_work()
     print(f"Agent status: {agent.get_status()}")
-    
+
     agent.complete_work()
     print(f"Agent status: {agent.get_status()}")
 EOF
@@ -140,25 +140,25 @@ cat > ~/.aios/launcher_config.yaml << 'EOF'
 launcher:
   name: "AIOS Desktop Launcher"
   version: "1.0"
-  
+
   # Menu Options
   menu_options:
     - name: "Launch AIOS Interactive Shell"
       command: "aios_shell"
       description: "Start AIOS with interactive Python shell"
-      
+
     - name: "Start Productivity Agent"
       command: "start_agent"
       description: "Launch a productivity agent"
-      
+
     - name: "Check AIOS Status"
       command: "check_status"
       description: "Verify AIOS installation and configuration"
-      
+
     - name: "Configure AIOS"
       command: "configure"
       description: "Set up API keys and LLM providers"
-      
+
     - name: "Run AIOS Tests"
       command: "run_tests"
       description: "Execute AIOS functionality tests"

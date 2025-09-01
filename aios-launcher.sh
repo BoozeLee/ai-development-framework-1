@@ -70,7 +70,7 @@ show_main_menu() {
 handle_menu_selection() {
     local choice
     read -p "Enter your choice (1-9): " choice
-    
+
     case $choice in
         1)
             echo -e "${CYAN}🚀 Launching AIOS Interactive Shell...${NC}"
@@ -171,21 +171,21 @@ except Exception as e:
 check_installation_status() {
     echo -e "${BLUE}🔍 Checking AIOS Installation...${NC}"
     echo ""
-    
+
     # Check environment
     if [ -d "$AIOS_ENV" ]; then
         echo -e "${GREEN}✅ AIOS Environment: $AIOS_ENV${NC}"
     else
         echo -e "${RED}❌ AIOS Environment: Not found${NC}"
     fi
-    
+
     # Check Python version
     if command -v python3 >/dev/null 2>&1; then
         echo -e "${GREEN}✅ Python: $(python3 --version)${NC}"
     else
         echo -e "${RED}❌ Python: Not found${NC}"
     fi
-    
+
     # Check GPU
     if command -v nvidia-smi >/dev/null 2>&1; then
         echo -e "${GREEN}✅ NVIDIA GPU: Available${NC}"
@@ -193,14 +193,14 @@ check_installation_status() {
     else
         echo -e "${YELLOW}⚠️  NVIDIA GPU: Not detected${NC}"
     fi
-    
+
     # Check Ollama
     if command -v ollama >/dev/null 2>&1; then
         echo -e "${GREEN}✅ Ollama: Available${NC}"
     else
         echo -e "${YELLOW}⚠️  Ollama: Not installed${NC}"
     fi
-    
+
     echo ""
     read -p "Press Enter to continue..."
 }
@@ -209,10 +209,10 @@ check_installation_status() {
 run_aios_test() {
     echo -e "${CYAN}🧪 Running AIOS Quick Test...${NC}"
     echo ""
-    
+
     if activate_aios; then
         echo -e "${GREEN}✅ Environment activated, running tests...${NC}"
-        
+
         # Test 1: Import test
         echo -e "${BLUE}📦 Test 1: Import Test${NC}"
         python -c "
@@ -228,7 +228,7 @@ try:
 except ImportError as e:
     print('   ❌ Cerebrum import failed:', e)
 "
-        
+
         # Test 2: Version test
         echo -e "${BLUE}📋 Test 2: Version Test${NC}"
         python -c "
@@ -246,36 +246,36 @@ try:
 except Exception as e:
     print('   ❌ Cerebrum version check failed:', e)
 "
-        
+
         # Test 3: Basic functionality test
         echo -e "${BLUE}⚙️  Test 3: Basic Functionality${NC}"
         python -c "
 try:
     import aios
     import cerebrum
-    
+
     # Check if modules have any content
     aios_attrs = [attr for attr in dir(aios) if not attr.startswith('_')]
     cerebrum_attrs = [attr for attr in dir(cerebrum) if not attr.startswith('_')]
-    
+
     print('   ✅ AIOS attributes found:', len(aios_attrs))
     print('   ✅ Cerebrum attributes found:', len(cerebrum_attrs))
-    
+
     if aios_attrs:
         print('   📋 Sample AIOS attributes:', aios_attrs[:5])
     if cerebrum_attrs:
         print('   📋 Sample Cerebrum attributes:', cerebrum_attrs[:5])
-        
+
 except Exception as e:
     print('   ❌ Functionality test failed:', e)
 "
-        
+
         echo -e "${GREEN}✅ AIOS Quick Test completed!${NC}"
         deactivate
     else
         echo -e "${RED}❌ Failed to activate environment for testing${NC}"
     fi
-    
+
     echo ""
     read -p "Press Enter to continue..."
 }
@@ -313,7 +313,7 @@ show_troubleshooting() {
 main() {
     show_banner
     check_aios_env
-    
+
     while true; do
         show_main_menu
         handle_menu_selection

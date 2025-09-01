@@ -15,7 +15,7 @@ source environments/ai-main/bin/activate
 pip install --upgrade pip
 pip install gpt4all transformers torch jupyterlab aider-chat
 
-# Install in neuromorphic environment  
+# Install in neuromorphic environment
 source environments/neuromorphic/bin/activate
 pip install brian2 snntorch lava-nc nengo qiskit pennylane
 

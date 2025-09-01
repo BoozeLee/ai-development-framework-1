@@ -33,7 +33,7 @@ opencode> Create a Python function to calculate factorial
 opencode> /edit factorial.py
 opencode> /run python factorial.py
 
-### 2. Aider - AI Pair Programmer  
+### 2. Aider - AI Pair Programmer
 **Status**: ✅ Working (v0.86.1 after upgrade)
 **Launch**: `ai-edit`
 
@@ -52,7 +52,7 @@ aider --model ollama/codellama:7b # Use local model
 
 ### 3. Ollama - Local LLMs
 **Status**: ✅ Working (codellama:7b installed)
-**Models Available**: 
+**Models Available**:
 - `codellama:7b` - Code generation and analysis
 - Add more: `ollama pull deepseek-coder:6.7b`
 

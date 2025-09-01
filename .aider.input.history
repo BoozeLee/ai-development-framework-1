@@ -34,7 +34,7 @@
 +n
 
 # 2025-08-31 04:52:08.814582
-+check if cursor is allready instaled  and why its not working 
++check if cursor is allready instaled  and why its not working
 
 # 2025-08-31 04:52:59.284447
 +yes
@@ -118,7 +118,7 @@
 +Yes
 
 # 2025-08-31 04:55:04.238337
-+check if other version were badly installed  and emove them , amke sure only one cursor editor is on my system 
++check if other version were badly installed  and emove them , amke sure only one cursor editor is on my system
 
 # 2025-08-31 04:55:52.812601
 +yes
@@ -848,14 +848,14 @@
 +    use_repo_map: true
 +    supports_vision: false
 +    max_tokens: 4096
-+    
++
 +  anthropic/claude-3.5-sonnet:
 +    edit_format: diff
 +    use_repo_map: true
 +    supports_vision: true
 +    thinking_tokens: true
 +    cache_prompts: true
-+    
++
 +  openai/gpt-4:
 +    edit_format: search-replace
 +    use_repo_map: true
@@ -1043,7 +1043,7 @@
 +yes
 
 # 2025-08-31 05:59:29.437043
-+does it matter that 1 fail ?? 
++does it matter that 1 fail ??
 
 # 2025-08-31 06:00:42.708256
 +yes
@@ -1110,7 +1110,7 @@
 +
 +show_menu() {
 +    echo "1)  🤖 OpenCode (Terminal AI)"
-+    echo "2)  📝 Cursor IDE (AI-Powered Editor)" 
++    echo "2)  📝 Cursor IDE (AI-Powered Editor)"
 +    echo "3)  👥 Aider v0.86+ (Latest Features)"
 +    echo "4)  🧬 Ollama Models & Chat"
 +    echo "5)  📊 Mathematical Tools Demo"
@@ -1131,7 +1131,7 @@
 +    echo "5) Copy-Paste with Web UIs"
 +    echo "6) Help Assistant"
 +    echo "7) Back to Main Menu"
-+    
++
 +    read -p "Select (1-7): " choice
 +    case $choice in
 +        1) cd ~/ai-development; aider --architect --model ollama/codellama:7b ;;
@@ -1148,7 +1148,7 @@
 +    show_banner
 +    show_menu
 +    read -p "Select option (1-10): " choice
-+    
++
 +    case $choice in
 +        1)
 +            echo "🤖 Starting OpenCode..."

@@ -110,7 +110,7 @@ run_tests() {
 # Create development configuration
 create_dev_config() {
     print_status "Creating development configuration..."
-    
+
     # Create .env file if it doesn't exist
     if [ ! -f ".env" ]; then
         cat > .env << EOF

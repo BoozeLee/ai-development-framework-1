@@ -4,7 +4,7 @@
 show_menu() {
     echo "🧠 === NeoSpiral AI Development Tools ==="
     echo "1) OpenCode (Terminal AI Assistant)"
-    echo "2) Cursor IDE (AI-Powered Code Editor)"  
+    echo "2) Cursor IDE (AI-Powered Code Editor)"
     echo "3) Aider (AI Pair Programmer)"
     echo "4) Ollama Models (Local LLMs)"
     echo "5) Mathematical Tools Demo"
@@ -23,7 +23,7 @@ activate_ai_env() {
 while true; do
     show_menu
     read -p "Select option (1-8): " choice
-    
+
     case $choice in
         1)
             echo "🤖 Starting OpenCode..."

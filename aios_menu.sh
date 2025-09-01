@@ -44,13 +44,13 @@ check_environment() {
         print_error "AIOS base directory not found: $BASE_DIR"
         exit 1
     fi
-    
+
     if [[ ! -d "$ENV_PATH" ]]; then
         print_error "AIOS virtual environment not found: $ENV_PATH"
         print_warning "Please run the installation script first"
         exit 1
     fi
-    
+
     if [[ ! -f "$MENU_SCRIPT" ]]; then
         print_error "AIOS menu script not found: $MENU_SCRIPT"
         exit 1
@@ -60,7 +60,7 @@ check_environment() {
 # Activate virtual environment
 activate_env() {
     print_status "Activating AIOS virtual environment..."
-    
+
     if [[ -f "$ENV_PATH/bin/activate" ]]; then
         source "$ENV_PATH/bin/activate"
         print_status "Environment activated successfully"
@@ -76,7 +76,7 @@ check_python() {
         print_error "Python3 is not installed or not in PATH"
         exit 1
     fi
-    
+
     print_status "Python3 found: $(python3 --version)"
 }
 
@@ -84,18 +84,18 @@ check_python() {
 launch_menu() {
     print_header
     print_status "Starting AIOS Comprehensive Menu..."
-    
+
     # Check environment
     check_environment
     check_python
-    
+
     # Activate environment
     activate_env
-    
+
     # Launch the menu
     print_status "Launching AIOS menu..."
     echo ""
-    
+
     # Run the menu with proper environment
     cd "$BASE_DIR"
     python3 "$MENU_SCRIPT"
@@ -122,10 +122,10 @@ case "${1:-}" in
     --test)
         print_header
         print_status "Testing AIOS installation..."
-        
+
         check_environment
         activate_env
-        
+
         # Run a quick test
         python3 -c "
 import aios
@@ -140,7 +140,7 @@ print('🎉 AIOS test passed!')
     --debug)
         print_header
         print_status "Running in debug mode..."
-        
+
         set -x  # Enable debug output
         check_environment
         activate_env

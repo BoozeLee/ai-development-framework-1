@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
-sys.path.insert(0, '/home/booze/ai-development/aws-env/lib/python3.11/site-packages')
+
+sys.path.insert(0, "/home/booze/ai-development/aws-env/lib/python3.11/site-packages")
 
 from aws_athena_client import AthenaClient
 

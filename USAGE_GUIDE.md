@@ -24,7 +24,7 @@ opencode
 - Direct file editing
 - Command execution with permission control
 
-### 2. Cursor IDE (AI-Powered Code Editor)  
+### 2. Cursor IDE (AI-Powered Code Editor)
 **Purpose**: VSCode-based editor with AI features
 **Usage**:
 

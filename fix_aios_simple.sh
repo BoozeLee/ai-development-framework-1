@@ -41,17 +41,17 @@ class Object:
         self.name = name or "AIOS_Object"
         self.properties = properties or {}
         self.id = id(self)
-    
+
     def __str__(self):
         return f"AIOS_Object({self.name}, id={self.id})"
-    
+
     def __repr__(self):
         return self.__str__()
-    
+
     def set_property(self, key, value):
         """Set a property on the object"""
         self.properties[key] = value
-    
+
     def get_property(self, key, default=None):
         """Get a property from the object"""
         return self.properties.get(key, default)
@@ -63,13 +63,13 @@ class State:
         self.name = name
         self.current_state = default or states[0] if states else None
         self.history = []
-    
+
     def __str__(self):
         return f"AIOS_State({self.name}: {self.current_state})"
-    
+
     def __repr__(self):
         return self.__str__()
-    
+
     def change_state(self, new_state):
         """Change to a new state"""
         if new_state in self.states:
@@ -83,11 +83,11 @@ class State:
             return True
         else:
             raise ValueError(f"Invalid state: {new_state}. Valid states: {self.states}")
-    
+
     def get_history(self):
         """Get state change history"""
         return self.history.copy()
-    
+
     def reset(self):
         """Reset to initial state"""
         if self.states:
@@ -118,17 +118,17 @@ class Object:
         self.name = name or "AIOS_Object"
         self.properties = properties or {}
         self.id = id(self)
-    
+
     def __str__(self):
         return f"AIOS_Object({self.name}, id={self.id})"
-    
+
     def __repr__(self):
         return self.__str__()
-    
+
     def set_property(self, key, value):
         """Set a property on the object"""
         self.properties[key] = value
-    
+
     def get_property(self, key, default=None):
         """Get a property from the object"""
         return self.properties.get(key, default)
@@ -157,13 +157,13 @@ class State:
         self.name = name
         self.current_state = default or states[0] if states else None
         self.history = []
-    
+
     def __str__(self):
         return f"AIOS_State({self.name}: {self.current_state})"
-    
+
     def __repr__(self):
         return self.__str__()
-    
+
     def change_state(self, new_state):
         """Change to a new state"""
         if new_state in self.states:
@@ -177,11 +177,11 @@ class State:
             return True
         else:
             raise ValueError(f"Invalid state: {new_state}. Valid states: {self.states}")
-    
+
     def get_history(self):
         """Get state change history"""
         return self.history.copy()
-    
+
     def reset(self):
         """Reset to initial state"""
         if self.states:
