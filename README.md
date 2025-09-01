@@ -1,6 +1,13 @@
 # AI Development Framework
 
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github)](https://github.com/BoozeLee/ai-development-framework)
+[![Python](https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+[![Tests](https://img.shields.io/badge/Tests-Passing-green?style=for-the-badge)](https://github.com/BoozeLee/ai-development-framework/actions)
+
 A comprehensive AI development and orchestration framework with multiple specialized environments and tools.
+
+**Repository**: https://github.com/BoozeLee/ai-development-framework
 
 ## 🚀 Features
 
@@ -126,3 +133,29 @@ For support and questions:
 - Multi-environment support
 - Database integration
 - Production deployment capabilities
+- Repository mirroring system
+
+## 🔗 Repository Mirroring
+
+This project is mirrored between two repositories:
+
+- **Personal**: https://github.com/BoozeLee/ai-development-framework
+- **Organization**: https://github.com/Bakery-street-projct/ai-development-framework
+
+### Manual Mirroring
+```bash
+# Mirror to both repositories
+./mirror_repos.sh both
+
+# Mirror to personal only
+./mirror_repos.sh personal
+
+# Mirror to organization only
+./mirror_repos.sh org
+
+# Check status
+./mirror_repos.sh status
+```
+
+### Automatic Mirroring
+GitHub Actions automatically sync changes between repositories when you push to either repository.
