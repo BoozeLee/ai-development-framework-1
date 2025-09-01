@@ -1,0 +1,52 @@
+name: Mirror Repositories
+
+on:
+  push:
+    branches: [ master, develop ]
+  workflow_dispatch:
+
+jobs:
+  mirror-to-org:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Mirror to Organization
+        run: |
+          git remote add org https://github.com/Bakery-street-projct/ai-development-framework.git
+          git push org ${{ github.ref_name }}
+          echo "Successfully mirrored to organization repository"
+      
+      - name: Notify on success
+        if: success()
+        run: |
+          echo "✅ Repository successfully mirrored to organization"
+          echo "Personal: https://github.com/BoozeLee/ai-development-framework"
+          echo "Organization: https://github.com/Bakery-street-projct/ai-development-framework"
+
+  mirror-to-personal:
+    runs-on: ubuntu-latest
+    if: github.repository == 'Bakery-street-projct/ai-development-framework'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Mirror to Personal
+        run: |
+          git remote add personal https://github.com/BoozeLee/ai-development-framework.git
+          git push personal ${{ github.ref_name }}
+          echo "Successfully mirrored to personal repository"
+      
+      - name: Notify on success
+        if: success()
+        run: |
+          echo "✅ Repository successfully mirrored to personal"
+          echo "Organization: https://github.com/Bakery-street-projct/ai-development-framework"
+          echo "Personal: https://github.com/BoozeLee/ai-development-framework"
