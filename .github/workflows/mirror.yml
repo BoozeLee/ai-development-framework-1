@@ -16,8 +16,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Mirror to Organization
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git remote add org https://github.com/Bakery-street-projct/ai-development-framework.git
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git remote add org https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Bakery-street-projct/ai-development-framework.git
           git push org ${{ github.ref_name }}
           echo "Successfully mirrored to organization repository"
       
@@ -39,8 +43,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Mirror to Personal
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git remote add personal https://github.com/BoozeLee/ai-development-framework.git
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git remote add personal https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/BoozeLee/ai-development-framework.git
           git push personal ${{ github.ref_name }}
           echo "Successfully mirrored to personal repository"
       
