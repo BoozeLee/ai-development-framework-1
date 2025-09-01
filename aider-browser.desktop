@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Aider Browser
+Comment=AI development environment with browser interface
+Exec=streamlit run yourscript.py
+Icon=applications-other
+Terminal=true
+Categories=Development;AI;
+StartupWMClass=Streamlit
