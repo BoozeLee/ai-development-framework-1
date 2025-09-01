@@ -9,6 +9,8 @@ A comprehensive AI development and orchestration framework with multiple special
 
 **Repository**: https://github.com/BoozeLee/ai-development-framework
 
+![Organization Logo](organization_logo.png)
+
 ## 🚀 Features
 
 - **Multi-Environment Setup**: Separate environments for AI, neuromorphic computing, and research
