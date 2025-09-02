@@ -105,3 +105,26 @@ packages.microsoft.gpg
 # Other
 duck
 ~/
+
+# Security and Credentials
+.env
+.env.local
+.env.production
+.env.staging
+*.key
+*.pem
+*.p12
+*.pfx
+credentials/
+secrets/
+config/production.json
+config/staging.json
+
+# AWS
+.aws/
+aws-credentials
+
+# Backup files
+*.backup
+*.bak
+*.tmp

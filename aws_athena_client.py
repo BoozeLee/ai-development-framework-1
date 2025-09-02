@@ -1,3 +1,4 @@
+import os
 #!/usr/bin/env python3
 """
 AWS Athena Client
@@ -10,7 +11,7 @@ import time
 class AthenaClient:
     def __init__(self, region='us-east-1'):
         self.client = boto3.client('athena', region_name=region)
-        self.s3_output = 's3://aws-athena-query-results-022787321020-us-east-1/'
+        self.s3_output = os.getenv('AWS_S3_OUTPUT_BUCKET', 's3://your-athena-results-bucket/')
         
     def execute_query(self, query, database='default'):
         """Execute a query on Athena"""
